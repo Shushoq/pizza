@@ -6,7 +6,7 @@ const initialState = {
 const pizzas = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'SET_PIZZAS':
-      return { ...state, items: payload }
+      return { ...state, items: payload, isLoaded: true }
     default:
       return state
   }
