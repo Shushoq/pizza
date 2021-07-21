@@ -18,9 +18,9 @@ const categories = [
 ]
 
 const sort = [
-  { name: 'популярности', type: 'popular' },
-  { name: 'цене', type: 'price' },
-  { name: 'алфавиту', type: 'alphabet' },
+  { name: 'популярности', type: 'popular', order: 'desc' },
+  { name: 'цене', type: 'price', order: 'desc' },
+  { name: 'алфавиту', type: 'name', order: 'asc' },
 ]
 
 const Home = () => {
@@ -50,7 +50,7 @@ const Home = () => {
           items={categories}
         />
         <SortPopup
-          activeSortType={sortBy}
+          activeSortType={sortBy.type}
           onClickSortType={onSelectSortType}
           items={sort}
         />
