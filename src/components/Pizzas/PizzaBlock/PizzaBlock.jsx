@@ -2,9 +2,18 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import React, { useState } from 'react'
 
-const PizzaBlock = ({ id, name, imageUrl, price, sizes, types }) => {
+const PizzaBlock = ({
+  id,
+  name,
+  imageUrl,
+  price,
+  sizes,
+  types,
+  onAddToCart,
+  addedCount,
+}) => {
   const [activeType, setActiveType] = useState(types[0])
-  const [activeSize, setActiveSize] = useState(sizes[0])
+  const [activeSize, setActiveSize] = useState(0)
   const availableTypes = ['тонкое', 'традиционное']
   const availableSizes = [26, 30, 40]
 
@@ -14,6 +23,18 @@ const PizzaBlock = ({ id, name, imageUrl, price, sizes, types }) => {
 
   const onSelectSize = (index) => {
     setActiveSize(index)
+  }
+
+  const addToCardHandler = () => {
+    const data = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: availableSizes[activeSize],
+      type: availableTypes[activeType],
+    }
+    onAddToCart(data)
   }
 
   return (
@@ -52,7 +73,10 @@ const PizzaBlock = ({ id, name, imageUrl, price, sizes, types }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <button
+          className="button button--outline button--add"
+          onClick={() => addToCardHandler()}
+        >
           <svg
             width="12"
             height="12"
@@ -66,8 +90,8 @@ const PizzaBlock = ({ id, name, imageUrl, price, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          <i>{addedCount}</i>
+        </button>
       </div>
     </div>
   )
@@ -80,6 +104,8 @@ PizzaBlock.propTypes = {
   price: PropTypes.number,
   types: PropTypes.arrayOf(PropTypes.number),
   sizes: PropTypes.arrayOf(PropTypes.oneOf([26, 30, 40])),
+  onAddToCart: PropTypes.func,
+  addedCount: PropTypes.number,
 }
 
 PizzaBlock.defaultProps = {
@@ -87,6 +113,7 @@ PizzaBlock.defaultProps = {
   price: 0,
   sizes: [],
   types: [],
+  addedCount: 0,
 }
 
 export default PizzaBlock
