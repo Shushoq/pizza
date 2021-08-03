@@ -25,6 +25,12 @@ const cart = (state = initialState, { type, payload }) => {
     }
     case 'REMOVE_FROM_CART':
       return { ...state }
+    case 'CLEAR_CART':
+      return {
+        items: {},
+        totalPrice: 0,
+        totalCount: 0,
+      }
     default:
       return state
   }
